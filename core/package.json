@@ -1,0 +1,16 @@
+{
+  "name": "reddit-downloader-core",
+  "version": "1.0.0",
+  "description": "Reddit Video Downloader Core",
+  "main": "build/index.js",
+  "repository": "https://github.com/Pauloo27/Reddit",
+  "author": "Pauloo27",
+  "license": "GPL-2.0",
+  "scripts": {
+    "build": "tsc .",
+    "start": "node ."
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
+}
