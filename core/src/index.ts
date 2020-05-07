@@ -26,11 +26,15 @@ export async function extractVideoInfo(url: string) : Promise<VideoInfo> {
   return info;
 }
 
-export function extractAudioUrl(videoInfo : VideoInfo) : string {
+export function extractAudioUrl(videoInfo: VideoInfo) : string {
   return `${videoInfo.url}/audio`;
+}
+
+export async function hasAudioTrack(videoInfo: VideoInfo) : Promise<boolean> {
+  const res = await fetch(extractAudioUrl(videoInfo));
+  return res.status === 200;
 }
 
 export function extractVideoUrl(videoInfo: VideoInfo) : string {
   return videoInfo.fallbackUrl;
 }
-
