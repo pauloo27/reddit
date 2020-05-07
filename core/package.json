@@ -7,7 +7,7 @@
   "author": "Pauloo27",
   "license": "GPL-2.0",
   "scripts": {
-    "build": "tsc .",
+    "build": "tsc",
     "start": "node ."
   },
   "devDependencies": {
