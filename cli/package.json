@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "@types/commander": "^2.12.2",
+    "@types/fluent-ffmpeg": "^2.1.14",
     "@types/node": "^13.13.5",
     "commander": "^5.1.0",
+    "fluent-ffmpeg": "^2.1.2",
     "reddit-downloader-core": "../core"
   }
 }
