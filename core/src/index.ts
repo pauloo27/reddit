@@ -11,7 +11,7 @@ export async function extractVideoInfo(url: string) : Promise<VideoInfo> {
   let fetchUrl = url;
   if (!fetchUrl.endsWith('.json')) fetchUrl += '.json';
 
-  const json = await (await fetch(url)).json();
+  const json = await (await fetch(fetchUrl)).json();
 
   const postData = json[0].data.children[0].data;
   const mediaData = postData.media.reddit_video;
