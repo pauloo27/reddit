@@ -1,4 +1,4 @@
-<img alt="Reddit Logo" src="https://upload.wikimedia.org/wikipedia/fr/thumb/5/58/Reddit_logo_new.svg/1200px-Reddit_logo_new.svg.png" height="100px" />
+<img alt="Reddit Logo" src="https://upload.wikimedia.org/wikipedia/fr/thumb/5/58/Reddit_logo_new.svg/1200px-Reddit_logo_new.svg.png" height="300px" />
 
 # Reddit Downloader
 Download Reddit videos with sound using a NodeJS CLI with ffmpeg.
@@ -7,7 +7,7 @@ Download Reddit videos with sound using a NodeJS CLI with ffmpeg.
 First, make sure you have ffmpeg installed.
 
 ### Build the core
-In the `core` folder, run `yarn install` to download the dependencies, then `yarn build` to build the module.
+In the `core` folder, run `yarn install` to install the dependencies, then `yarn build` to build the module.
 
 ### Build the CLI
 In the `cli` folder, run `yarn install` to install the dependencies, then `yarn build` to build the module.
