@@ -8,7 +8,7 @@ export interface VideoInfo {
 }
 
 export async function extractVideoInfo(url: string) : Promise<VideoInfo> {
-  let fetchUrl = url;
+  let fetchUrl = url.split('?')[0];
   if (!fetchUrl.endsWith('.json')) fetchUrl += '.json';
 
   const json = await (await fetch(fetchUrl)).json();
