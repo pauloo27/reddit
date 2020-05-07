@@ -1,5 +1,6 @@
-<img alt="Reddit Logo" src="https://upload.wikimedia.org/wikipedia/fr/thumb/5/58/Reddit_logo_new.svg/1200px-Reddit_logo_new.svg.png" height="300px" />
-
+<p align='center'>
+  <img alt="Reddit Logo" src="https://upload.wikimedia.org/wikipedia/fr/thumb/5/58/Reddit_logo_new.svg/1200px-Reddit_logo_new.svg.png" height="200px" />
+</p>
 # Reddit Downloader
 Download Reddit videos with sound using a NodeJS CLI with ffmpeg.
 
