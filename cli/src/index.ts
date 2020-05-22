@@ -38,7 +38,7 @@ cli.command('download <url>').description('Download a Reddit video with Audio')
     const resolution = readline.question(`Select a resolution (${resolutions.join(', ')}): `);
 
     if (!resolutions.includes(resolution)) {
-      console.log('Invalid resolution.')
+      console.log('Invalid resolution.');
       process.exit(-1);
     }
 
