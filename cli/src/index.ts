@@ -1,16 +1,21 @@
 import cli from 'commander';
 import {
-  extractVideoInfo, extractAudioUrl, extractVideoUrl, hasAudioTrack,
+  extractVideoInfo, extractAudioUrl, extractVideoUrl, hasAudioTrack, getAvailableResolutions,
 } from 'reddit-downloader-core';
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
+import readline from 'readline-sync';
 
 cli.command('extract <url>').description('Extract the media urls from a Reddit video')
   .action(async (url) => {
     console.log(`Extracting ${url}`);
     const videoInfo = await extractVideoInfo(url);
 
-    console.log(`Video track: ${extractVideoUrl(videoInfo)}`);
+    console.log('Videos track:');
+
+    getAvailableResolutions(videoInfo).forEach((resolution) => {
+      console.log(`  -> ${resolution}: ${extractVideoUrl(videoInfo, resolution)}`);
+    });
 
     if (await hasAudioTrack(videoInfo)) {
       console.log(`Audio track: ${extractAudioUrl(videoInfo)}`);
@@ -29,7 +34,15 @@ cli.command('download <url>').description('Download a Reddit video with Audio')
     const outputFile = `downloads/${id}.mp4`;
     const command = ffmpeg();
 
-    command.output(outputFile).addInput(extractVideoUrl(videoInfo));
+    const resolutions = getAvailableResolutions(videoInfo);
+    const resolution = readline.question(`Select a resolution (${resolutions.join(', ')}): `);
+
+    if (!resolutions.includes(resolution)) {
+      console.log('Invalid resolution.')
+      process.exit(-1);
+    }
+
+    command.output(outputFile).addInput(extractVideoUrl(videoInfo, resolution));
 
     if (await hasAudioTrack(videoInfo)) {
       console.log('Found audio track...');
@@ -46,7 +59,7 @@ cli.command('download <url>').description('Download a Reddit video with Audio')
     });
 
     command.on('progress', (data) => {
-      console.log(`Status ${data.percent.toFixed(1)}%`);
+      console.log(`Status ${Math.max(0.0, data.percent.toFixed(1))}%`);
     });
 
     console.log('Downloading the video...');
