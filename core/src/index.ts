@@ -13,6 +13,7 @@ export interface VideoInfo {
   fallbackUrl: string;
   isVideo: boolean;
   url: string;
+  isMP4: boolean;
   duration: number;
 }
 
@@ -24,9 +25,11 @@ export async function extractVideoInfo(url: string) : Promise<VideoInfo> {
 
   const postData = json[0].data.children[0].data;
   const mediaData = postData.media.reddit_video;
+  const fallbackUrl = mediaData.fallback_url.split('?')[0];
 
   const info: VideoInfo = {
-    fallbackUrl: mediaData.fallback_url.split('?')[0],
+    fallbackUrl,
+    isMP4: fallbackUrl.endsWith('.mp4'),
     url: postData.url,
     isVideo: postData.is_video,
     duration: mediaData.duration,
@@ -36,7 +39,7 @@ export async function extractVideoInfo(url: string) : Promise<VideoInfo> {
 }
 
 export function extractAudioUrl(videoInfo: VideoInfo) : string {
-  return `${videoInfo.url}/audio`;
+  return videoInfo.isMP4 ? `${videoInfo.url}/DASH_audio.mp4`: `${videoInfo.url}/audio`;
 }
 
 export async function hasAudioTrack(videoInfo: VideoInfo) : Promise<boolean> {
@@ -45,7 +48,7 @@ export async function hasAudioTrack(videoInfo: VideoInfo) : Promise<boolean> {
 }
 
 export function getBestResolution(videoInfo: VideoInfo) : string {
-  return videoInfo.fallbackUrl.split('_')[1];
+  return videoInfo.fallbackUrl.split('_')[1].split(".")[0];
 }
 
 export function getAvailableResolutions(videoInfo: VideoInfo) : Array<string> {
@@ -54,6 +57,6 @@ export function getAvailableResolutions(videoInfo: VideoInfo) : Array<string> {
 
 export function extractVideoUrl(videoInfo: VideoInfo, resolution?: string) : string {
   if (resolution === undefined) return videoInfo.fallbackUrl;
-
+  if (videoInfo.isMP4) resolution += ".mp4";
   return `${videoInfo.fallbackUrl.split('_')[0]}_${resolution}`;
 }
