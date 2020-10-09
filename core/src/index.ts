@@ -39,7 +39,7 @@ export async function extractVideoInfo(url: string) : Promise<VideoInfo> {
 }
 
 export function extractAudioUrl(videoInfo: VideoInfo) : string {
-  return videoInfo.isMP4 ? `${videoInfo.url}/DASH_audio.mp4`: `${videoInfo.url}/audio`;
+  return videoInfo.isMP4 ? `${videoInfo.url}/DASH_audio.mp4` : `${videoInfo.url}/audio`;
 }
 
 export async function hasAudioTrack(videoInfo: VideoInfo) : Promise<boolean> {
@@ -48,7 +48,7 @@ export async function hasAudioTrack(videoInfo: VideoInfo) : Promise<boolean> {
 }
 
 export function getBestResolution(videoInfo: VideoInfo) : string {
-  return videoInfo.fallbackUrl.split('_')[1].split(".")[0];
+  return videoInfo.fallbackUrl.split('_')[1].split('.')[0];
 }
 
 export function getAvailableResolutions(videoInfo: VideoInfo) : Array<string> {
@@ -57,6 +57,6 @@ export function getAvailableResolutions(videoInfo: VideoInfo) : Array<string> {
 
 export function extractVideoUrl(videoInfo: VideoInfo, resolution?: string) : string {
   if (resolution === undefined) return videoInfo.fallbackUrl;
-  if (videoInfo.isMP4) resolution += ".mp4";
+  if (videoInfo.isMP4) resolution += '.mp4';
   return `${videoInfo.fallbackUrl.split('_')[0]}_${resolution}`;
 }
